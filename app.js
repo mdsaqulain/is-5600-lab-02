@@ -70,9 +70,31 @@ function renderPortfolio(user, stocks) {
     portfolioDetails.appendChild(sharesEl);
     portfolioDetails.appendChild(actionEl);
   });
-portfolioDetails.addEventListener('click', (event) => {
-  if (event.target.tagName === 'BUTTON') {
-    viewStock(event.target.id, stocks);
+  portfolioDetails.addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON') {
+      viewStock(event.target.id, stocks);
+    }
+  });
+}
+function populateForm(data) {
+  const { user, id } = data;
+  document.querySelector('#userID').value = id;
+  document.querySelector('#firstname').value = user.firstname;
+  document.querySelector('#lastname').value = user.lastname;
+  document.querySelector('#address').value = user.address;
+  document.querySelector('#city').value = user.city;
+  document.querySelector('#email').value = user.email;
+}
+function viewStock(symbol, stocks) {
+  const stockArea = document.querySelector('.stock-form');
+  if (stockArea) {
+      const stock = stocks.find( function (s) { return s.symbol == symbol;});
+
+      document.querySelector('#stockName').textContent = stock.name;
+      document.querySelector('#stockSector').textContent = stock.sector;
+      document.querySelector('#stockIndustry').textContent = stock.subIndustry;
+      document.querySelector('#stockAddress').textContent = stock.address;
+
+      document.querySelector('#logo').src = `logos/${symbol}.svg`;
   }
-});
-}  
+}
