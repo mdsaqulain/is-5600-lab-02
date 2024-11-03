@@ -12,3 +12,25 @@ document.addEventListener('DOMContentLoaded', () => {
     userData.splice(userIndex, 1);
     generateUserList(userData, stocksData);
 });
+saveButton.addEventListener('click', (event) => {
+  event.preventDefault();
+
+  const id = document.querySelector('#userID').value;
+  const userIndex = userData.findIndex(user => user.id == id);
+
+  const newUser = [
+      ...userData.slice(0, userIndex),
+      {
+              ...userData[userIndex],
+              user: {
+                  firstname: document.querySelector('#firstname').value,
+                  lastname: document.querySelector('#lastname').value,
+                  address: document.querySelector('#address').value,
+                  city: document.querySelector('#city').value,
+                  email: document.querySelector('#email').value,
+          },
+      },
+      ...userData.slice(userIndex + 1)
+  ];
+  generateUserList(newUser, stocksData);
+})
