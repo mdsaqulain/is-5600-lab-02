@@ -34,3 +34,15 @@ saveButton.addEventListener('click', (event) => {
   ];
   generateUserList(newUser, stocksData);
 })
+})
+function generateUserList(users, stocks) {
+    const userList = document.querySelector('.user-list');
+    userList.innerHTML = '';
+    users.map(({user, id}) => {
+      const listItem = document.createElement('li');
+      listItem.innerText = user.lastname + ', ' + user.firstname;
+      listItem.setAttribute('id', id);
+      userList.appendChild(listItem);
+    });
+    userList.addEventListener('click', (event) => handleUserListClick(event, users, stocks));
+ }
